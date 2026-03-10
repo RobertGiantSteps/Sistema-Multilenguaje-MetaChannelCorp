@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+*.DS_Store
+
+# Video grande (>38MB excede limite GitHub)
+*.mp4
+
+# Docker volumes
+db_data/
+wp_data/
+
+# IDE
+.vscode/
+.idea/
+
+# Node
+node_modules/
+
+# Vercel
+.vercel/
+.vercel

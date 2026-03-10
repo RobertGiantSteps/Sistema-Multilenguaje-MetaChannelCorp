@@ -1,0 +1,89 @@
+# ═══════════════════════════════════════════════════════════════════
+# META Channel Corporation — Arquitectura Multidioma WordPress
+# Imagen publicada en DockerHub
+#
+# REQUISITO PREVIO — Añadir al archivo /etc/hosts del sistema:
+#   127.0.0.1   metachannelcorp.com
+#   127.0.0.1   metachannelcorp.ie
+#
+# ARRANQUE:
+#   docker compose up -d
+#
+# ACCESO:
+#   https://metachannelcorp.com       → Español
+#   https://metachannelcorp.com/en/   → Inglés
+#   https://metachannelcorp.ie        → Redirección 301 a .com/en/
+#   https://metachannelcorp.com/wp-admin/  → admin / admin123
+#
+# NOTA: El navegador mostrará advertencia de certificado autofirmado.
+#       Acepta la excepción de seguridad para continuar.
+# ═══════════════════════════════════════════════════════════════════
+
+services:
+
+  db:
+    image: mariadb:10.11
+    container_name: mcc_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE:      wordpress
+      MYSQL_USER:          wpuser
+      MYSQL_PASSWORD:      wppass
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - mcc_net
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  wordpress:
+    image: jazzcode/mcc-wordpress:1.1
+    container_name: mcc_wordpress
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      WORDPRESS_DB_HOST:     db:3306
+      WORDPRESS_DB_NAME:     wordpress
+      WORDPRESS_DB_USER:     wpuser
+      WORDPRESS_DB_PASSWORD: wppass
+      WORDPRESS_CONFIG_EXTRA: |
+        if (isset($$_SERVER['HTTP_X_FORWARDED_PROTO']) && $$_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+            $$_SERVER['HTTPS'] = 'on';
+        }
+        if (isset($$_SERVER['HTTP_HOST'])) {
+            define('WP_SITEURL', 'https://' . $$_SERVER['HTTP_HOST']);
+            define('WP_HOME',    'https://' . $$_SERVER['HTTP_HOST']);
+        }
+        define('FORCE_SSL_ADMIN', false);
+    volumes:
+      - wp_data:/var/www/html
+    networks:
+      - mcc_net
+
+  nginx:
+    image: jazzcode/mcc-nginx:1.1
+    container_name: mcc_nginx
+    restart: unless-stopped
+    depends_on:
+      - wordpress
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - wp_data:/var/www/html
+    networks:
+      - mcc_net
+
+volumes:
+  db_data:
+  wp_data:
+
+networks:
+  mcc_net:
+    driver: bridge

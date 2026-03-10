@@ -1,0 +1,9 @@
+IMÁGENES PUBLICADAS EN DOCKERHUB
+META Channel Corporation — Arquitectura Multidioma WordPress
+=============================================================
+
+jazzcode/mcc-wordpress:1.0
+jazzcode/mcc-nginx:1.0
+
+=============================================================
+Para levantar el entorno consultar: README.md
