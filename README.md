@@ -9,9 +9,9 @@ Sitio web corporativo bilingüe **(Español / English)** de **META Channel Corpo
 | Entorno | URL | Idioma |
 |---------|-----|--------|
 | **Vercel — Español** | https://meta-channel-multilingual.vercel.app/es/ | Español |
-| **Vercel — English** | https://meta-channel-multilingual.vercel.app/en/ | English |
+| **Vercel — Inglés** | https://meta-channel-multilingual.vercel.app/en/ | Inglés |
 | **Docker local — ES** | https://metachannelcorp.com | Español |
-| **Docker local — EN** | https://metachannelcorp.com/en/ | English |
+| **Docker local — EN** | https://metachannelcorp.com/en/ | Inglés |
 | **Docker local — IE** | https://metachannelcorp.ie | → 301 a .com/en/ |
 | **Panel Admin WP** | https://metachannelcorp.com/wp-admin/ | admin / admin123 |
 
