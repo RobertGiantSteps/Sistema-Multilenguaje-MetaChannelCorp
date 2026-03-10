@@ -36,26 +36,40 @@
 <link rel="alternate" hreflang="en-GB" href="https://meta-channel-multilingual.vercel.app/en/nosotros/" />
 <link rel="alternate" hreflang="es" href="https://meta-channel-multilingual.vercel.app/es/nosotros/" />
 <link rel="alternate" hreflang="en" href="https://meta-channel-multilingual.vercel.app/en/nosotros/" />
+
 <style>
-#trp-switcher-dropdown-list { display: none; }
-.trp-language-item__current { cursor: pointer; }
+.trp-language-item__current { cursor: pointer; user-select: none; }
+.trp-language-item__current:hover { opacity: 0.85; }
 </style>
 <script>
 (function(){
   document.addEventListener('DOMContentLoaded', function(){
-    var btn = document.querySelector('.trp-language-item__current');
+    var btn  = document.querySelector('.trp-language-item__current');
     var list = document.getElementById('trp-switcher-dropdown-list');
-    if(!btn || !list) return;
+    if (!btn || !list) return;
+
+    // Remove hidden/inert attrs instead of using display (hidden overrides display)
     btn.addEventListener('click', function(e){
       e.stopPropagation();
-      var open = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
-      list.style.display = open ? 'none' : 'block';
+      var isOpen = btn.getAttribute('aria-expanded') === 'true';
+      if (isOpen) {
+        list.setAttribute('hidden', '');
+        list.setAttribute('inert', '');
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        list.removeAttribute('hidden');
+        list.removeAttribute('inert');
+        btn.setAttribute('aria-expanded', 'true');
+      }
     });
+
     document.addEventListener('click', function(){
+      list.setAttribute('hidden', '');
+      list.setAttribute('inert', '');
       btn.setAttribute('aria-expanded', 'false');
-      list.style.display = 'none';
     });
+
+    list.addEventListener('click', function(e){ e.stopPropagation(); });
   });
 })();
 </script>
