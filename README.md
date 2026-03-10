@@ -132,7 +132,23 @@ https://meta-channel-multilingual.vercel.app/es/   ← Español
 https://meta-channel-multilingual.vercel.app/en/   ← English
 ```
 
-### B — Levantar entorno Docker local
+### B — Flujo de despliegue continuo (GitHub → Vercel)
+
+El repositorio está conectado a Vercel con **auto-deploy activado**:
+
+```
+git add .
+git commit -m "descripción del cambio"
+git push origin main
+```
+
+Vercel detecta el push automáticamente y despliega en **menos de 30 segundos**. No se necesita ninguna acción adicional.
+
+Panel de despliegues: [https://vercel.com/dashboard](https://vercel.com/dashboard)
+
+### C — Levantar entorno Docker local
+
+> Solo necesario para desarrollo local con WordPress + PHP. El sitio en Vercel funciona de forma independiente y no requiere Docker.
 
 **Requisitos:** Docker Desktop instalado.
 
