@@ -3,11 +3,14 @@
   "buildCommand": null,
   "outputDirectory": "static-site",
   "rewrites": [
-    { "source": "/en", "destination": "/en/index.html" },
-    { "source": "/nosotros", "destination": "/nosotros/index.html" },
-    { "source": "/contacto", "destination": "/contacto/index.html" },
-    { "source": "/en/nosotros", "destination": "/en/nosotros/index.html" },
-    { "source": "/en/contacto", "destination": "/en/contacto/index.html" }
+    { "source": "/en",            "destination": "/en/index.html" },
+    { "source": "/es",            "destination": "/es/index.html" },
+    { "source": "/nosotros",      "destination": "/nosotros/index.html" },
+    { "source": "/contacto",      "destination": "/contacto/index.html" },
+    { "source": "/en/nosotros",   "destination": "/en/nosotros/index.html" },
+    { "source": "/en/contacto",   "destination": "/en/contacto/index.html" },
+    { "source": "/es/nosotros",   "destination": "/es/nosotros/index.html" },
+    { "source": "/es/contacto",   "destination": "/es/contacto/index.html" }
   ],
   "headers": [
     {
